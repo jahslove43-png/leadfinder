@@ -1,0 +1,31 @@
+name: ChatGPT & Codex Plugin Autopilot
+
+on:
+  push:
+    branches: [main]
+    tags: ['v*']
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  autopilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run Plugin Autopilot
+        uses: imMamdouhaboammar/chatgpt-codex-plugin-autopilot@v1
+        with:
+          path: '.'
+          action: 'auto'
+          output-dir: 'dist'
+          fail-on-error: 'true'
+          summary: 'true'
+
+      - name: Attach Plugin Release Artifact
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            dist/*.zip
+            dist/SHA256SUMS
