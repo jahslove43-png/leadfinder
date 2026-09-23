@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LeadFinder</title>
+  <meta name="description" content="Find and manage business leads with LeadFinder.">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+  <div id="authView" class="auth-shell">
+    <div class="auth-card">
+      <div class="brand"><span class="brand-mark">LF</span><span>LeadFinder</span></div>
+      <h1 id="authTitle">Find businesses that need a website</h1>
+      <p id="authSubtitle">Create an account to build campaigns and collect qualified leads.</p>
+      <form id="authForm">
+        <label id="nameLabel" class="hidden">Full name<input id="fullName" type="text" autocomplete="name"></label>
+        <label>Email<input id="email" type="email" required autocomplete="email"></label>
+        <label>Password<input id="password" type="password" required minlength="6" autocomplete="current-password"></label>
+        <button id="authButton" class="primary" type="submit">Sign in</button>
+      </form>
+      <button id="toggleAuth" class="link-button" type="button">Create an account</button>
+      <div id="authMessage" class="message"></div>
+    </div>
+  </div>
+
+  <div id="appView" class="app hidden">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">LF</span><span>LeadFinder</span></div>
+      <div class="top-actions"><span id="userEmail" class="muted"></span><button id="logoutButton" class="ghost">Log out</button></div>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <div>
+          <span class="eyebrow">Lead discovery</span>
+          <h1>Business leads, organized automatically.</h1>
+          <p>Create a campaign, run a scan, review website status, and export your leads.</p>
+        </div>
+        <button id="newCampaignButton" class="primary">+ New campaign</button>
+      </section>
+
+      <section class="metrics">
+        <article><span>Campaigns</span><strong id="metricCampaigns">0</strong></article>
+        <article><span>Leads</span><strong id="metricLeads">0</strong></article>
+        <article><span>No website found</span><strong id="metricNoWebsite">0</strong></article>
+        <article><span>Scans</span><strong id="metricScans">0</strong></article>
+      </section>
+
+      <section id="campaignPanel" class="panel hidden">
+        <div class="panel-head"><div><h2>Create campaign</h2><p>Set the locations and categories LeadFinder should scan.</p></div><button id="closeCampaign" class="icon-button">×</button></div>
+        <form id="campaignForm" class="form-grid">
+          <label>Campaign name<input id="campaignName" required placeholder="Lagos restaurants"></label>
+          <label>Categories<input id="categories" placeholder="restaurants, barbers, plumbers"></label>
+          <label>Keywords<input id="keywords" placeholder="restaurant, cafe, local business"></label>
+          <label>Countries<input id="countries" placeholder="Nigeria, Ghana"></label>
+          <label>Regions / states<input id="regions" placeholder="Lagos, Accra"></label>
+          <label>Cities<input id="cities" placeholder="Lagos, Ikeja"></label>
+          <label>Daily target<input id="dailyTarget" type="number" min="1" max="5000" value="1000"></label>
+          <label>Scan time<input id="scanTime" type="time" value="06:00"></label>
+          <label>Timezone<input id="timezone" value="Africa/Lagos"></label>
+          <label>Notification Gmail<input id="notificationEmail" type="email" placeholder="you@gmail.com"></label>
+          <label class="check-row"><input id="worldwide" type="checkbox"> Worldwide campaign</label>
+          <div class="form-actions"><button type="button" id="cancelCampaign" class="ghost">Cancel</button><button class="primary" type="submit">Create campaign</button></div>
+        </form>
+        <div id="campaignMessage" class="message"></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><div><h2>Campaigns</h2><p>Your active and paused discovery campaigns.</p></div><button id="refreshButton" class="ghost">Refresh</button></div>
+        <div id="campaignList" class="list empty">No campaigns yet.</div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><div><h2>Recent leads</h2><p>Businesses connected to your campaigns.</p></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Business</th><th>Location</th><th>Website status</th><th>Score</th><th>Status</th></tr></thead><tbody id="leadTable"><tr><td colspan="5" class="empty">No leads yet.</td></tr></tbody></table></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><div><h2>Scan history</h2><p>Recent automated and manual scans.</p></div></div>
+        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Campaign</th><th>Status</th><th>Discovered</th><th>No website</th></tr></thead><tbody id="scanTable"><tr><td colspan="5" class="empty">No scans yet.</td></tr></tbody></table></div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><div><h2>Exports</h2><p>Download generated CSV files.</p></div></div>
+        <div id="exportList" class="list empty">No exports yet.</div>
+      </section>
+    </main>
+  </div>
+
+  <div id="toast" class="toast"></div>
+  <script src="./app.js"></script>
+</body>
+</html>
