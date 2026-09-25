@@ -47,7 +47,7 @@ $("authForm").onsubmit = async (event) => {
   const email = $("email").value.trim();
   const password = $("password").value;
   const result = signup
-    ? await db.auth.signUp({ email, password, options: { data: { full_name: $("fullName").value.trim() } } })
+    ? await db.auth.signUp({ email, password, options: { data: { full_name: $("fullName").value.trim() }, emailRedirectTo: "https://jahslove43-png.github.io/leadfinder/" } })
     : await db.auth.signInWithPassword({ email, password });
   if (result.error) return message("authMessage", result.error.message);
   if (signup && !result.data.session) message("authMessage", "Account created. Check your email if confirmation is enabled.");
