@@ -328,7 +328,9 @@ function renderCampaigns() {
   }
   el.className = "list";
   el.innerHTML = campaigns.map((campaign) => {
-    const location = campaign.worldwide ? "Worldwide" : (csv(campaign.countries) || csv(campaign.cities) || "Selected locations");
+    const location = campaign.worldwide
+      ? "Worldwide"
+      : [csv(campaign.countries), csv(campaign.regions), csv(campaign.cities)].filter(Boolean).join(" · ") || "Selected locations";
     return '<div class="campaign-item"><div><b>' + esc(campaign.name) + '</b> <span class="status">' + (campaign.active ? "ACTIVE" : "PAUSED") + '</span><p>' + esc(csv(campaign.categories) || "All categories") + ' · ' + esc(location) + ' · Target ' + campaign.daily_target + '/day</p></div><div class="campaign-actions"><button class="ghost" onclick="runScan(\'' + campaign.id + '\')">Run scan</button><button class="ghost" onclick="toggleCampaign(\'' + campaign.id + '\',' + (!campaign.active) + ')">' + (campaign.active ? "Pause" : "Activate") + '</button></div></div>';
   }).join("");
 }
