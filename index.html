@@ -157,83 +157,107 @@
   </div>
 
   <div id="appView" class="app hidden">
-    <header class="topbar">
-      <div class="brand"><span class="brand-mark">LF</span><span>LeadFinder</span></div>
-      <div class="top-actions"><span id="userEmail" class="muted"></span><button id="logoutButton" class="ghost">Log out</button></div>
-    </header>
+    <aside class="app-sidebar">
+      <a href="#" class="sidebar-brand"><span class="brand-mark">LF</span><span>LeadFinder</span></a>
+      <nav class="sidebar-nav">
+        <a href="#overview" class="active">⌂ <span>Overview</span></a>
+        <a href="#campaigns-section">◫ <span>Campaigns</span></a>
+        <a href="#leads-section">◉ <span>Prospects</span></a>
+        <a href="#scans-section">◷ <span>Scans</span></a>
+        <a href="#exports-section">⇩ <span>Exports</span></a>
+      </nav>
+      <div class="sidebar-bottom">
+        <a href="./faq.html">Help & FAQ</a>
+        <a href="./policies.html">Policies</a>
+      </div>
+    </aside>
 
-    <main class="container">
-      <section class="hero">
-        <div>
-          <span class="eyebrow">Lead discovery</span>
-          <h1>Business leads, organized automatically.</h1>
-          <p>Create a campaign, run a scan, review website status, and export your leads.</p>
-        </div>
-        <button id="newCampaignButton" class="primary">+ New campaign</button>
-      </section>
+    <div class="app-main">
+      <header class="topbar">
+        <div class="mobile-brand"><span class="brand-mark">LF</span><span>LeadFinder</span></div>
+        <div class="top-search">⌕ <span>Search prospects, campaigns...</span></div>
+        <div class="top-actions"><span id="userEmail" class="muted"></span><button id="logoutButton" class="ghost">Log out</button></div>
+      </header>
 
-      <section class="metrics">
-        <article><span>Campaigns</span><strong id="metricCampaigns">0</strong></article>
-        <article><span>Leads</span><strong id="metricLeads">0</strong></article>
-        <article><span>No website found</span><strong id="metricNoWebsite">0</strong></article>
-        <article><span>Scans</span><strong id="metricScans">0</strong></article>
-      </section>
-
-      <section id="campaignPanel" class="panel hidden">
-        <div class="panel-head"><div><h2>Create campaign</h2><p>Set the locations and categories LeadFinder should scan.</p></div><button id="closeCampaign" class="icon-button">×</button></div>
-        <form id="campaignForm" class="form-grid">
-          <label>Campaign name<input id="campaignName" required placeholder="Lagos restaurants"></label>
-          <label>Categories<input id="categories" placeholder="restaurants, barbers, plumbers"></label>
-          <label>Keywords<input id="keywords" placeholder="restaurant, cafe, local business"></label>
-          <div class="location-field">
-            <span class="field-label">Countries</span>
-            <button type="button" id="countriesPickerButton" class="selector-button">Select countries</button>
-            <input id="countries" type="hidden">
-            <small id="countriesSummary" class="selection-summary">No countries selected</small>
+      <main class="container">
+        <section id="overview" class="dashboard-head">
+          <div>
+            <span class="eyebrow">WORKSPACE</span>
+            <h1>Good morning. Here’s your pipeline.</h1>
+            <p>Monitor discovery, find your highest-priority prospects, and keep campaigns moving.</p>
           </div>
-          <div class="location-field">
-            <span class="field-label">Regions / states</span>
-            <button type="button" id="regionsPickerButton" class="selector-button" disabled>Select regions / states</button>
-            <input id="regions" type="hidden">
-            <small id="regionsSummary" class="selection-summary">Choose countries first</small>
+          <button id="newCampaignButton" class="primary">+ New campaign</button>
+        </section>
+
+        <section class="metrics">
+          <article><span>Total campaigns</span><strong id="metricCampaigns">0</strong><small>Active and paused</small></article>
+          <article><span>Prospects found</span><strong id="metricLeads">0</strong><small>Across your campaigns</small></article>
+          <article><span>Website gap signals</span><strong id="metricNoWebsite">0</strong><small>Review before outreach</small></article>
+          <article><span>Scans completed</span><strong id="metricScans">0</strong><small>Manual + scheduled</small></article>
+        </section>
+
+        <section class="workspace-grid">
+          <div>
+            <section id="campaigns-section" class="panel">
+              <div class="panel-head"><div><h2>Campaigns</h2><p>Saved discovery jobs and their current state.</p></div><button id="refreshButton" class="ghost">Refresh</button></div>
+              <div id="campaignList" class="list empty">No campaigns yet.</div>
+            </section>
+
+            <section id="leads-section" class="panel">
+              <div class="panel-head"><div><h2>Prospects</h2><p>Businesses connected to your campaigns.</p></div><a href="#leads-section" class="table-action">View all</a></div>
+              <div class="table-toolbar"><span>Latest prospects</span><div><button class="filter-chip active">All</button><button class="filter-chip">Needs review</button><button class="filter-chip">Website gap</button></div></div>
+              <div class="table-wrap"><table><thead><tr><th>Business</th><th>Location</th><th>Website signal</th><th>Score</th><th>Stage</th></tr></thead><tbody id="leadTable"><tr><td colspan="5" class="empty">No prospects yet.</td></tr></tbody></table></div>
+            </section>
           </div>
-          <div class="location-field">
-            <span class="field-label">Cities</span>
-            <button type="button" id="citiesPickerButton" class="selector-button" disabled>Select cities</button>
-            <input id="cities" type="hidden">
-            <small id="citiesSummary" class="selection-summary">Choose a region / state first</small>
-          </div>
-          <label>Daily target<input id="dailyTarget" type="number" min="1" max="5000" value="1000"></label>
-          <label>Scan time<input id="scanTime" type="time" value="06:00"></label>
-          <label>Timezone<input id="timezone" value="Africa/Lagos"></label>
-          <label>Notification Gmail<input id="notificationEmail" type="email" placeholder="you@gmail.com"></label>
-          <label class="check-row"><input id="worldwide" type="checkbox"> Worldwide campaign</label>
-          <div class="form-actions"><button type="button" id="cancelCampaign" class="ghost">Cancel</button><button class="primary" type="submit">Create campaign</button></div>
-        </form>
-        <div id="campaignMessage" class="message"></div>
-      </section>
 
-      <section class="panel">
-        <div class="panel-head"><div><h2>Campaigns</h2><p>Your active and paused discovery campaigns.</p></div><button id="refreshButton" class="ghost">Refresh</button></div>
-        <div id="campaignList" class="list empty">No campaigns yet.</div>
-      </section>
+          <aside class="right-rail">
+            <section class="panel priority-panel">
+              <div class="panel-head"><div><h2>Priority queue</h2><p>What deserves attention first.</p></div></div>
+              <div class="priority-item"><span class="priority-dot"></span><div><b>Website gap signals</b><small>Review businesses with no identified website.</small></div><strong id="priorityNoWebsite">0</strong></div>
+              <div class="priority-item"><span class="priority-dot"></span><div><b>New prospects</b><small>Recently discovered businesses.</small></div><strong id="priorityNew">0</strong></div>
+              <div class="priority-item"><span class="priority-dot"></span><div><b>Active campaigns</b><small>Campaigns currently scheduled.</small></div><strong id="priorityActive">0</strong></div>
+            </section>
 
-      <section class="panel">
-        <div class="panel-head"><div><h2>Recent leads</h2><p>Businesses connected to your campaigns.</p></div></div>
-        <div class="table-wrap"><table><thead><tr><th>Business</th><th>Location</th><th>Website status</th><th>Score</th><th>Status</th></tr></thead><tbody id="leadTable"><tr><td colspan="5" class="empty">No leads yet.</td></tr></tbody></table></div>
-      </section>
+            <section class="panel quick-panel">
+              <div class="panel-head"><div><h2>Quick actions</h2></div></div>
+              <button class="quick-action" id="quickCampaign">＋ Create campaign <span>→</span></button>
+              <a class="quick-action" href="#scans-section">◷ Review scan history <span>→</span></a>
+              <a class="quick-action" href="#exports-section">⇩ View exports <span>→</span></a>
+            </section>
+          </aside>
+        </section>
 
-      <section class="panel">
-        <div class="panel-head"><div><h2>Scan history</h2><p>Recent automated and manual scans.</p></div></div>
-        <div class="table-wrap"><table><thead><tr><th>Date</th><th>Campaign</th><th>Status</th><th>Discovered</th><th>No website</th></tr></thead><tbody id="scanTable"><tr><td colspan="5" class="empty">No scans yet.</td></tr></tbody></table></div>
-      </section>
+        <section id="scans-section" class="panel">
+          <div class="panel-head"><div><h2>Scan history</h2><p>Track completed, partial, and failed discovery runs.</p></div></div>
+          <div class="table-wrap"><table><thead><tr><th>Date</th><th>Campaign</th><th>Status</th><th>Discovered</th><th>Website gap</th></tr></thead><tbody id="scanTable"><tr><td colspan="5" class="empty">No scans yet.</td></tr></tbody></table></div>
+        </section>
 
-      <section class="panel">
-        <div class="panel-head"><div><h2>Exports</h2><p>Download generated CSV files.</p></div></div>
-        <div id="exportList" class="list empty">No exports yet.</div>
-      </section>
-    </main>
+        <section id="exports-section" class="panel">
+          <div class="panel-head"><div><h2>Exports</h2><p>Download the files generated by completed scans.</p></div></div>
+          <div id="exportList" class="list empty">No exports yet.</div>
+        </section>
+      </main>
+    </div>
   </div>
+
+  <section id="campaignPanel" class="panel campaign-modal hidden">
+    <div class="panel-head"><div><h2>Create campaign</h2><p>Define exactly what LeadFinder should discover.</p></div><button id="closeCampaign" class="icon-button">×</button></div>
+    <form id="campaignForm" class="form-grid">
+      <label>Campaign name<input id="campaignName" required placeholder="Lagos restaurants"></label>
+      <label>Categories<input id="categories" placeholder="restaurants, barbers, plumbers"></label>
+      <label>Keywords<input id="keywords" placeholder="restaurant, cafe, local business"></label>
+      <div class="location-field"><span class="field-label">Countries</span><button type="button" id="countriesPickerButton" class="selector-button">Select countries</button><input id="countries" type="hidden"><small id="countriesSummary" class="selection-summary">No countries selected</small></div>
+      <div class="location-field"><span class="field-label">Regions / states</span><button type="button" id="regionsPickerButton" class="selector-button" disabled>Select regions / states</button><input id="regions" type="hidden"><small id="regionsSummary" class="selection-summary">Choose countries first</small></div>
+      <div class="location-field"><span class="field-label">Cities</span><button type="button" id="citiesPickerButton" class="selector-button" disabled>Select cities</button><input id="cities" type="hidden"><small id="citiesSummary" class="selection-summary">Choose a region / state first</small></div>
+      <label>Daily target<input id="dailyTarget" type="number" min="1" max="5000" value="1000"></label>
+      <label>Scan time<input id="scanTime" type="time" value="06:00"></label>
+      <label>Timezone<input id="timezone" value="Africa/Lagos"></label>
+      <label>Notification Gmail<input id="notificationEmail" type="email" placeholder="you@gmail.com"></label>
+      <label class="check-row"><input id="worldwide" type="checkbox"> Worldwide campaign</label>
+      <div class="form-actions"><button type="button" id="cancelCampaign" class="ghost">Cancel</button><button class="primary" type="submit">Create campaign</button></div>
+    </form>
+    <div id="campaignMessage" class="message"></div>
+  </section>
 
   <div id="locationPicker" class="picker-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
     <div class="picker-card">
