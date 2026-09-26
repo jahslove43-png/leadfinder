@@ -9,8 +9,153 @@
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
-  <div id="authView" class="auth-shell">
+  <div id="landingView" class="landing">
+    <nav class="landing-nav">
+      <a href="#" class="brand" aria-label="LeadFinder home"><span class="brand-mark">LF</span><span>LeadFinder</span></a>
+      <div class="nav-links">
+        <a href="#how-it-works">How it works</a>
+        <a href="#features">Features</a>
+        <a href="#faq">FAQ</a>
+        <a href="#policies">Policies</a>
+        <button id="navLoginButton" class="ghost" type="button">Sign in</button>
+        <button id="navSignupButton" class="primary" type="button">Get started</button>
+      </div>
+    </nav>
+
+    <header class="landing-hero">
+      <div class="hero-copy">
+        <span class="eyebrow">BUSINESS LEAD DISCOVERY</span>
+        <h1>Find businesses.<br><span class="hero-accent">Organize opportunities.</span></h1>
+        <p class="hero-lead">LeadFinder helps you discover businesses in the locations and categories you choose, review website-status signals, manage leads, and export your results.</p>
+        <div class="hero-actions">
+          <button id="heroSignupButton" class="primary large" type="button">Start finding leads</button>
+          <a class="secondary-button" href="#how-it-works">See how it works</a>
+        </div>
+        <p class="hero-note">Free to get started. Usage may be subject to third-party API limits and service availability.</p>
+      </div>
+      <div class="hero-visual">
+        <div class="finder-card">
+          <div class="finder-top"><span class="live-dot"></span><span>Campaign preview</span><span class="mini-status">ACTIVE</span></div>
+          <div class="finder-search">Restaurants · Lagos · Nigeria</div>
+          <div class="finder-row"><span>Lagos restaurant</span><span class="signal">Website status</span></div>
+          <div class="finder-row"><span>Local cafe</span><span class="signal">Needs verification</span></div>
+          <div class="finder-row"><span>Family restaurant</span><span class="signal">Website found</span></div>
+          <div class="finder-footer"><span>CSV export</span><span>Daily scan</span><span>Gmail alert</span></div>
+        </div>
+      </div>
+    </header>
+
+    <section class="trust-strip">
+      <span>Built for freelancers</span><span>Agencies</span><span>Sales teams</span><span>Local-business prospecting</span>
+    </section>
+
+    <section id="how-it-works" class="landing-section">
+      <div class="section-heading"><span class="eyebrow">SIMPLE WORKFLOW</span><h2>From search criteria to an organized lead list.</h2><p>Set your targeting once, then let LeadFinder handle the repetitive discovery workflow.</p></div>
+      <div class="steps-grid">
+        <article class="feature-card"><span class="step-number">01</span><h3>Choose your market</h3><p>Select countries, regions or states, and cities. Categories and keywords let you define what you want to find.</p></article>
+        <article class="feature-card"><span class="step-number">02</span><h3>Run a campaign</h3><p>Run a scan manually or configure an active campaign for scheduled discovery.</p></article>
+        <article class="feature-card"><span class="step-number">03</span><h3>Review the signals</h3><p>See business details, website-status signals, lead scores, campaign history, and verification states.</p></article>
+        <article class="feature-card"><span class="step-number">04</span><h3>Export and act</h3><p>Download CSV exports and use the organized information in your own sales workflow.</p></article>
+      </div>
+    </section>
+
+    <section id="features" class="landing-section dark-section">
+      <div class="section-heading"><span class="eyebrow">WHAT YOU GET</span><h2>A focused lead-discovery workspace.</h2></div>
+      <div class="feature-grid">
+        <article><div class="feature-icon">◎</div><h3>Targeted campaigns</h3><p>Define categories, keywords, countries, regions, states, and cities instead of searching randomly.</p></article>
+        <article><div class="feature-icon">⌁</div><h3>Website-status signals</h3><p>Separate website-found results from businesses that still need verification. LeadFinder does not promise that every signal is definitive.</p></article>
+        <article><div class="feature-icon">▦</div><h3>Lead management</h3><p>Keep discovered businesses connected to your campaigns with scores and lead statuses.</p></article>
+        <article><div class="feature-icon">↓</div><h3>CSV exports</h3><p>Turn completed scans into downloadable CSV files for your existing workflow.</p></article>
+        <article><div class="feature-icon">◷</div><h3>Scheduled scans</h3><p>Active campaigns can run on a configured schedule when the required providers and quotas are available.</p></article>
+        <article><div class="feature-icon">✉</div><h3>Completion notifications</h3><p>Configure an email address for scan completion and operational notifications.</p></article>
+      </div>
+    </section>
+
+    <section class="landing-section">
+      <div class="split-panel">
+        <div><span class="eyebrow">ACCURACY MATTERS</span><h2>We distinguish a signal from a fact.</h2><p>A business without a visible website in a data source is not automatically proof that it has no website. LeadFinder uses explicit status states so uncertain results can be reviewed instead of being presented as guaranteed facts.</p></div>
+        <div class="status-list">
+          <div><b>WEBSITE_FOUND</b><span>A website was identified by the discovery provider.</span></div>
+          <div><b>NO_WEBSITE_FOUND</b><span>No website was found after the configured verification process.</span></div>
+          <div><b>NEEDS_VERIFICATION</b><span>The available evidence is not enough to make a definitive determination.</span></div>
+          <div><b>VERIFICATION_FAILED</b><span>A verification attempt could not be completed successfully.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section class="landing-section">
+      <div class="section-heading"><span class="eyebrow">RESPONSIBLE USE</span><h2>Designed for legitimate business prospecting.</h2></div>
+      <div class="policy-grid">
+        <article><h3>Respect applicable law</h3><p>You are responsible for using LeadFinder and any exported data in accordance with applicable privacy, marketing, data-protection, and anti-spam laws.</p></article>
+        <article><h3>Respect third-party terms</h3><p>Discovery providers have their own terms, attribution requirements, data restrictions, quotas, and usage rules. LeadFinder does not override those requirements.</p></article>
+        <article><h3>No guarantee of a sale</h3><p>LeadFinder provides discovery and organization tools. It does not guarantee that a lead is accurate, available for contact, interested, or likely to become a customer.</p></article>
+        <article><h3>Verify before outreach</h3><p>Review important lead information before contacting a business and use appropriate, lawful communication practices.</p></article>
+      </div>
+    </section>
+
+    <section id="faq" class="landing-section faq-section">
+      <div class="section-heading"><span class="eyebrow">FAQ</span><h2>Questions before you start?</h2></div>
+      <div class="faq-list">
+        <details><summary>What does LeadFinder do?</summary><p>It lets you create targeted business-discovery campaigns, run scans, review results, manage leads, and export completed results.</p></details>
+        <details><summary>Can I search worldwide?</summary><p>Yes. Campaigns can be configured as worldwide or narrowed to selected countries, regions or states, and cities. Actual coverage depends on the discovery providers, available data, quotas, and service availability.</p></details>
+        <details><summary>Does “no website found” mean the business definitely has no website?</summary><p>No. It is a discovery/verification result, not a guarantee. Results can be incomplete or outdated, so important prospects should be checked before outreach.</p></details>
+        <details><summary>How often can scans run?</summary><p>You can configure a campaign schedule. Actual execution can be affected by provider quotas, API availability, rate limits, errors, and your account configuration.</p></details>
+        <details><summary>Will LeadFinder send messages to businesses automatically?</summary><p>The current product is focused on discovery, organization, exports, and notifications about your scans. You remain responsible for deciding if, when, and how to contact a business.</p></details>
+        <details><summary>Is my data public?</summary><p>Your account and campaign data are protected by authentication and database access controls. You should still avoid putting unnecessary sensitive information into campaign fields or exported files.</p></details>
+      </div>
+    </section>
+
+    <section id="policies" class="landing-section policy-section">
+      <div class="section-heading"><span class="eyebrow">POLICIES</span><h2>Product policies and important notices.</h2><p>These product policies explain how LeadFinder is intended to be used. They are not a substitute for jurisdiction-specific legal advice.</p></div>
+      <div class="policy-docs">
+        <details open><summary>Privacy Policy</summary><div class="policy-copy">
+          <p><b>Information we process.</b> LeadFinder may process your account email, profile information, campaign settings, scan records, lead records, export metadata, notification settings, and technical information required to operate the service.</p>
+          <p><b>How we use information.</b> We use account and campaign information to authenticate you, run requested campaigns, store results, provide exports, display your dashboard, send operational notifications, maintain security, and improve reliability.</p>
+          <p><b>Third-party services.</b> LeadFinder may use infrastructure and service providers such as Supabase, email providers, and business-data/discovery APIs. Their own terms and privacy policies may also apply.</p>
+          <p><b>Security.</b> We use authentication, database access controls, and server-side secrets for protected operations. No internet service can promise absolute security.</p>
+          <p><b>Your responsibility.</b> Do not upload or enter sensitive personal information that is not necessary for your campaign.</p>
+          <p><b>Retention and deletion.</b> We retain service data only as needed for the operation of your account and the features you use, subject to operational, legal, and provider requirements. Account/data deletion controls may depend on the current product implementation.</p>
+          <p><b>Updates.</b> This policy may change as the product changes. The current version published on this site applies from its stated effective date.</p>
+          <p><b>Effective date:</b> September 26, 2026.</p>
+        </div></details>
+        <details><summary>Terms of Use</summary><div class="policy-copy">
+          <p><b>Acceptance.</b> By using LeadFinder, you agree to use the service lawfully and responsibly.</p>
+          <p><b>Permitted use.</b> Use the service for legitimate business research, prospecting, lead organization, and related lawful purposes.</p>
+          <p><b>Prohibited use.</b> Do not use LeadFinder to facilitate unlawful activity, harassment, fraud, abuse, unauthorized access, or communications that violate applicable rules.</p>
+          <p><b>Third-party data.</b> Information supplied through third-party providers may be incomplete, delayed, or subject to provider-specific restrictions. You must comply with those providers' terms and attribution requirements.</p>
+          <p><b>Results.</b> LeadFinder provides discovery signals, not guarantees. You are responsible for independently verifying information that matters to your business decision.</p>
+          <p><b>Availability.</b> Scans can be interrupted by provider outages, quotas, rate limits, network failures, maintenance, or other technical issues.</p>
+          <p><b>Changes.</b> Features, limits, providers, and policies may change as the service develops.</p>
+          <p><b>Effective date:</b> September 26, 2026.</p>
+        </div></details>
+        <details><summary>Acceptable Use Policy</summary><div class="policy-copy">
+          <p>Use LeadFinder in a way that respects people, businesses, applicable law, and the terms of the data providers used by the service. Do not attempt to circumvent quotas, authentication, security controls, provider restrictions, or access controls. Do not use exported information for unlawful or abusive activity.</p>
+        </div></details>
+        <details><summary>Data accuracy & verification policy</summary><div class="policy-copy">
+          <p>LeadFinder separates discovery from certainty. Website-status fields are signals generated from available evidence and may be wrong or outdated. Users should verify important information before relying on it for outreach or business decisions.</p>
+        </div></details>
+        <details><summary>Third-party data & Google Maps notice</summary><div class="policy-copy">
+          <p>LeadFinder may use Google Maps Platform services for business discovery. Google Maps Platform has its own Terms of Service, Privacy Policy, attribution rules, and restrictions on caching and storing Places content. Users must comply with applicable third-party requirements. Where Google Maps content is displayed, required attribution must be shown.</p>
+          <p>See <a href="https://developers.google.com/maps/documentation/places/web-service/policies" target="_blank" rel="noopener">Google Places API policies</a> and <a href="https://cloud.google.com/maps-platform/terms" target="_blank" rel="noopener">Google Maps Platform Terms</a>.</p>
+        </div></details>
+      </div>
+    </section>
+
+    <section class="final-cta">
+      <div><span class="eyebrow">READY TO START?</span><h2>Build your first lead campaign.</h2><p>Choose your market, run a scan, review the results, and keep your prospecting organized.</p></div>
+      <button id="finalSignupButton" class="primary large" type="button">Create free account</button>
+    </section>
+
+    <footer class="landing-footer">
+      <div class="brand"><span class="brand-mark">LF</span><span>LeadFinder</span></div>
+      <div><a href="#policies">Privacy</a><a href="#policies">Terms</a><a href="#faq">FAQ</a></div>
+      <p>© 2026 LeadFinder. Third-party names and services remain the property of their respective owners.</p>
+    </footer>
+  </div>
+
+  <div id="authView" class="auth-shell hidden">
     <div class="auth-card">
+      <button id="closeAuth" class="icon-button auth-close" type="button" aria-label="Close">×</button>
       <div class="brand"><span class="brand-mark">LF</span><span>LeadFinder</span></div>
       <h1 id="authTitle">Find businesses that need a website</h1>
       <p id="authSubtitle">Create an account to build campaigns and collect qualified leads.</p>
@@ -22,6 +167,7 @@
       </form>
       <button id="toggleAuth" class="link-button" type="button">Create an account</button>
       <div id="authMessage" class="message"></div>
+      <p class="auth-legal">By continuing, you agree to use LeadFinder lawfully and responsibly. See the policies above.</p>
     </div>
   </div>
 
