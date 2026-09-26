@@ -276,6 +276,19 @@ $("authForm").onsubmit = async (event) => {
     ? await db.auth.signUp({ email, password, options: { data: { full_name: $("fullName").value.trim() }, emailRedirectTo: "https://jahslove43-png.github.io/leadfinder/" } })
     : await db.auth.signInWithPassword({ email, password });
   if (result.error) return message("authMessage", result.error.message);
+  if (signup) {
+    try {
+      await db.functions.invoke("resend-lifecycle-event", {
+        body: {
+          event: "user.created",
+          payload: {
+            first_name: $("fullName").value.trim().split(/\\s+/)[0] || "there",
+            dashboard_url: "https://jahslove43-png.github.io/leadfinder/"
+          }
+        }
+      });
+    } catch (_) {}
+  }
   if (signup && !result.data.session) message("authMessage", "Account created. Check your email if confirmation is enabled.");
 };
 
@@ -316,6 +329,17 @@ $("campaignForm").onsubmit = async (event) => {
   $("dailyTarget").value = 1000;
   $("scanTime").value = "06:00";
   $("timezone").value = "Africa/Lagos";
+  try {
+    await db.functions.invoke("resend-lifecycle-event", {
+      body: {
+        event: "campaign.created",
+        payload: {
+          first_name: (await db.auth.getUser()).data.user?.user_metadata?.full_name?.split(/\\s+/)[0] || "there",
+          campaign_url: "https://jahslove43-png.github.io/leadfinder/"
+        }
+      }
+    });
+  } catch (_) {}
   toast("Campaign created");
   load();
 };
@@ -395,7 +419,40 @@ async function toggleCampaign(id, active) {
 async function runScan(id) {
   const result = await db.functions.invoke("run-business-scan", { body: { campaign_id: id } });
   if (result.error) return toast(result.error.message || "Scan failed");
-  toast(result.data?.message || "Scan started");
+  const scanData = result.data || {};
+  if (scanData.status === "COMPLETED" || scanData.status === "PARTIAL") {
+    const user = (await db.auth.getUser()).data.user;
+    try {
+      await db.functions.invoke("resend-lifecycle-event", {
+        body: {
+          event: scanData.status === "COMPLETED" ? "scan.completed" : "scan.failed",
+          payload: {
+            first_name: user?.user_metadata?.full_name?.split(/\\s+/)[0] || "there",
+            campaign_name: campaigns.find(x => x.id === id)?.name || "your campaign",
+            prospect_count: Number(scanData.discovered_count || 0),
+            csv_url: "https://jahslove43-png.github.io/leadfinder/",
+            dashboard_url: "https://jahslove43-png.github.io/leadfinder/"
+          }
+        }
+      });
+    } catch (_) {}
+  }
+  if (scanData.status === "FAILED") {
+    const user = (await db.auth.getUser()).data.user;
+    try {
+      await db.functions.invoke("resend-lifecycle-event", {
+        body: {
+          event: "scan.failed",
+          payload: {
+            first_name: user?.user_metadata?.full_name?.split(/\\s+/)[0] || "there",
+            campaign_name: campaigns.find(x => x.id === id)?.name || "your campaign",
+            dashboard_url: "https://jahslove43-png.github.io/leadfinder/"
+          }
+        }
+      });
+    } catch (_) {}
+  }
+  toast(scanData.message || "Scan finished");
   load();
 }
 
