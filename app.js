@@ -404,11 +404,11 @@ window.toggleCampaign = toggleCampaign;
 window.runScan = runScan;
 window.downloadExport = downloadExport;
 
-if (window.location.hash === "#signup" || window.location.hash === "#login") {
-  setTimeout(() => openAuth(window.location.hash === "#login" ? "login" : "signup"), 0);
-}
-
 (async () => {
+  const hashSession = await db.auth.getSession();
+  if (!hashSession.data.session && (window.location.hash === "#signup" || window.location.hash === "#login")) {
+    openAuth(window.location.hash === "#login" ? "login" : "signup");
+  }
   const sessionResult = await db.auth.getSession();
   if (sessionResult.data.session) {
     signedIn(sessionResult.data.session);
