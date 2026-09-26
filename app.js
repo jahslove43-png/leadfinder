@@ -284,6 +284,10 @@ $("newCampaignButton").onclick = () => {
   $("campaignPanel").classList.remove("hidden");
   $("campaignName").focus();
 };
+$("quickCampaign").onclick = () => {
+  $("campaignPanel").classList.remove("hidden");
+  $("campaignName").focus();
+};
 $("closeCampaign").onclick = $("cancelCampaign").onclick = () => $("campaignPanel").classList.add("hidden");
 $("refreshButton").onclick = load;
 
@@ -334,6 +338,9 @@ async function load() {
   $("metricLeads").textContent = leads.length;
   $("metricNoWebsite").textContent = leads.filter((x) => x.businesses?.website_status === "NO_WEBSITE_FOUND").length;
   $("metricScans").textContent = scans.length;
+  $("priorityNoWebsite").textContent = leads.filter((x) => x.businesses?.website_status === "NO_WEBSITE_FOUND").length;
+  $("priorityNew").textContent = leads.filter((x) => (x.status || "NEW") === "NEW").length;
+  $("priorityActive").textContent = campaigns.filter((x) => x.active).length;
   renderCampaigns();
   renderLeads(leads);
   renderScans(scans);
