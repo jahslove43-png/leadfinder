@@ -54,9 +54,24 @@
           <label>Campaign name<input id="campaignName" required placeholder="Lagos restaurants"></label>
           <label>Categories<input id="categories" placeholder="restaurants, barbers, plumbers"></label>
           <label>Keywords<input id="keywords" placeholder="restaurant, cafe, local business"></label>
-          <label>Countries<input id="countries" placeholder="Nigeria, Ghana"></label>
-          <label>Regions / states<input id="regions" placeholder="Lagos, Accra"></label>
-          <label>Cities<input id="cities" placeholder="Lagos, Ikeja"></label>
+          <div class="location-field">
+            <span class="field-label">Countries</span>
+            <button type="button" id="countriesPickerButton" class="selector-button">Select countries</button>
+            <input id="countries" type="hidden">
+            <small id="countriesSummary" class="selection-summary">No countries selected</small>
+          </div>
+          <div class="location-field">
+            <span class="field-label">Regions / states</span>
+            <button type="button" id="regionsPickerButton" class="selector-button" disabled>Select regions / states</button>
+            <input id="regions" type="hidden">
+            <small id="regionsSummary" class="selection-summary">Choose countries first</small>
+          </div>
+          <div class="location-field">
+            <span class="field-label">Cities</span>
+            <button type="button" id="citiesPickerButton" class="selector-button" disabled>Select cities</button>
+            <input id="cities" type="hidden">
+            <small id="citiesSummary" class="selection-summary">Choose a region / state first</small>
+          </div>
           <label>Daily target<input id="dailyTarget" type="number" min="1" max="5000" value="1000"></label>
           <label>Scan time<input id="scanTime" type="time" value="06:00"></label>
           <label>Timezone<input id="timezone" value="Africa/Lagos"></label>
@@ -87,6 +102,25 @@
         <div id="exportList" class="list empty">No exports yet.</div>
       </section>
     </main>
+  </div>
+
+  <div id="locationPicker" class="picker-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="pickerTitle">
+    <div class="picker-card">
+      <div class="picker-head">
+        <div>
+          <span class="eyebrow">Location selector</span>
+          <h2 id="pickerTitle">Select countries</h2>
+          <p id="pickerHint">Choose one or more countries.</p>
+        </div>
+        <button id="closePicker" class="icon-button" type="button" aria-label="Close">×</button>
+      </div>
+      <input id="pickerSearch" class="picker-search" type="search" placeholder="Search..." autocomplete="off">
+      <div id="pickerList" class="picker-list"></div>
+      <div class="picker-foot">
+        <span id="pickerCount" class="muted">0 selected</span>
+        <button id="donePicker" class="primary" type="button">Done</button>
+      </div>
+    </div>
   </div>
 
   <div id="toast" class="toast"></div>
