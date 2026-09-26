@@ -348,6 +348,7 @@ async function load() {
   const userResult = await db.auth.getUser();
   if (!userResult.data.user) return;
   const userId = userResult.data.user.id;
+  await db.from("profiles").update({ last_active_at: new Date().toISOString() }).eq("id", userId);
   const [campaignResult, leadResult, scanResult, exportResult] = await Promise.all([
     db.from("campaigns").select("*").eq("user_id", userId).order("created_at", { ascending: false }),
     db.from("leads").select("*,businesses(*)").eq("user_id", userId).order("created_at", { ascending: false }).limit(100),
