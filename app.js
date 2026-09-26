@@ -336,9 +336,9 @@ async function load() {
   const exports = exportResult.data || [];
   $("metricCampaigns").textContent = campaigns.length;
   $("metricLeads").textContent = leads.length;
-  $("metricNoWebsite").textContent = leads.filter((x) => x.businesses?.website_status === "NO_WEBSITE_FOUND").length;
+  $("metricNoWebsite").textContent = leads.filter((x) => ["NO_WEBSITE_FOUND", "NEEDS_VERIFICATION"].includes(x.businesses?.website_status)).length;
   $("metricScans").textContent = scans.length;
-  $("priorityNoWebsite").textContent = leads.filter((x) => x.businesses?.website_status === "NO_WEBSITE_FOUND").length;
+  $("priorityNoWebsite").textContent = leads.filter((x) => ["NO_WEBSITE_FOUND", "NEEDS_VERIFICATION"].includes(x.businesses?.website_status)).length;
   $("priorityNew").textContent = leads.filter((x) => (x.status || "NEW") === "NEW").length;
   $("priorityActive").textContent = campaigns.filter((x) => x.active).length;
   renderCampaigns();
@@ -366,7 +366,7 @@ function renderCampaigns() {
 function renderLeads(leads) {
   $("leadTable").innerHTML = leads.length ? leads.map((lead) => {
     const business = lead.businesses || {};
-    return '<tr><td><b>' + esc(business.name || "Unknown") + '</b><br><span class="muted">' + esc(business.category || "") + '</span></td><td>' + esc([business.city, business.state, business.country].filter(Boolean).join(", ")) + '</td><td><span class="badge">' + esc(business.website_status || "NEEDS_VERIFICATION") + '</span></td><td>' + (lead.lead_score ?? "—") + '</td><td><span class="badge">' + esc(lead.status || "NEW") + '</span></td></tr>';
+    return '<tr><td><b>' + esc(business.business_name || "Unknown") + '</b><br><span class="muted">' + esc(business.category || "") + '</span></td><td>' + esc([business.city, business.state, business.country].filter(Boolean).join(", ")) + '</td><td><span class="badge">' + esc(business.website_status || "NEEDS_VERIFICATION") + '</span></td><td>' + (lead.lead_score ?? "—") + '</td><td><span class="badge">' + esc(lead.status || "NEW") + '</span></td></tr>';
   }).join("") : '<tr><td colspan="5" class="empty">No leads yet.</td></tr>';
 }
 
