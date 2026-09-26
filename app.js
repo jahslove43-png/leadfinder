@@ -227,14 +227,35 @@ const toast = (value) => {
 const message = (id, value) => { $(id).textContent = value || ""; };
 
 function signedIn(session) {
+  $("landingView").classList.add("hidden");
   $("authView").classList.add("hidden");
   $("appView").classList.remove("hidden");
   $("userEmail").textContent = session.user.email || "";
 }
 function signedOut() {
-  $("authView").classList.remove("hidden");
+  $("landingView").classList.remove("hidden");
+  $("authView").classList.add("hidden");
   $("appView").classList.add("hidden");
 }
+
+function openAuth(mode = "signup") {
+  signup = mode === "signup";
+  $("landingView").classList.add("hidden");
+  $("authView").classList.remove("hidden");
+  $("authTitle").textContent = signup ? "Create your LeadFinder account" : "Welcome back";
+  $("authSubtitle").textContent = signup ? "Start building campaigns and collecting leads." : "Sign in to manage your campaigns and leads.";
+  $("authButton").textContent = signup ? "Create account" : "Sign in";
+  $("toggleAuth").textContent = signup ? "Already have an account? Sign in" : "Create an account";
+  $("nameLabel").classList.toggle("hidden", !signup);
+  message("authMessage", "");
+  $("email").focus();
+}
+$("navLoginButton").onclick = () => openAuth("login");
+$("navSignupButton").onclick = () => openAuth("signup");
+$("heroSignupButton").onclick = () => openAuth("signup");
+$("finalSignupButton").onclick = () => openAuth("signup");
+$("closeAuth").onclick = () => signedOut();
+$("authView").onclick = (event) => { if (event.target === $("authView")) signedOut(); };
 
 $("toggleAuth").onclick = () => {
   signup = !signup;
