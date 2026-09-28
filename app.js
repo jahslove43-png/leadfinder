@@ -424,34 +424,12 @@ async function runScan(id) {
   if (scanData.status === "COMPLETED" || scanData.status === "PARTIAL") {
     const user = (await db.auth.getUser()).data.user;
     try {
-      await db.functions.invoke("resend-lifecycle-event", {
-        body: {
-          event: scanData.status === "COMPLETED" ? "scan.completed" : "scan.failed",
-          payload: {
-            first_name: user?.user_metadata?.full_name?.split(/\\s+/)[0] || "there",
-            campaign_name: campaigns.find(x => x.id === id)?.name || "your campaign",
-            prospect_count: Number(scanData.discovered_count || 0),
-            csv_url: "https://jahslove43-png.github.io/leadfinder/",
-            dashboard_url: "https://jahslove43-png.github.io/leadfinder/"
-          }
-        }
-      });
-    } catch (_) {}
+} catch (_) {}
   }
   if (scanData.status === "FAILED") {
     const user = (await db.auth.getUser()).data.user;
     try {
-      await db.functions.invoke("resend-lifecycle-event", {
-        body: {
-          event: "scan.failed",
-          payload: {
-            first_name: user?.user_metadata?.full_name?.split(/\\s+/)[0] || "there",
-            campaign_name: campaigns.find(x => x.id === id)?.name || "your campaign",
-            dashboard_url: "https://jahslove43-png.github.io/leadfinder/"
-          }
-        }
-      });
-    } catch (_) {}
+} catch (_) {}
   }
   toast(scanData.message || "Scan finished");
   load();
